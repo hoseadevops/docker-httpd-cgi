@@ -166,31 +166,6 @@ function container_is_running()
 }
 
 #--------------------------------------------
-# 推送sunfund镜像到自己的仓库
-#
-# demo: sh docker.sh push_sunfund_image 9dy-php:5.6.8-fpm
-#--------------------------------------------
-function push_sunfund_image()
-{
-    local image_name=$2
-    local user_image="hoseadevops/sunfund-$image_name"
-    run_cmd "docker tag docker.sunfund.com/$image_name $user_image"
-    run_cmd "docker push $user_image"
-}
-
-#--------------------------------------------
-# 下载sunfund 镜像
-#
-# demo: sh docker.sh pull_sunfund_image 9dy-php:5.6.8-fpm
-#--------------------------------------------
-function pull_sunfund_image()
-{
-    local image_name=$2
-    local url=docker.sunfund.com/$image_name
-    run_cmd "docker pull $url"
-}
-
-#--------------------------------------------
 # 推送本地镜像到自己的仓库
 #
 # demo: sh docker.sh push_image
@@ -247,27 +222,3 @@ function replace_template_key_value()
 
     run_cmd "$cmd$sub_cmd $template > $out";
 }
-
-
-#--------------------------------------------
-# 变量扩展 默认值类用法
-#
-# ${parameter-word} 若parameter变量未定义，则扩展为word。
-# ${parameter:-word} 若parameter变量未定义或为空，则扩展为word。
-#--------------------------------------------
-#if [ "$action" = 'init' ]; then
-#    if [ $# -lt 1 ]; then
-#        echo "Usage sh $0 init";
-#        exit 1
-#    fi
-#    init
-#    exit 0
-#fi
-
-
-#busybox_image=busy
-#syslogng_image=balabit/syslog-ng
-#redis_image=redis:3.0.1
-#mysql_image=mysql:5.7
-#php_image=hoseadevops/own-php:7.1.7-fpm
-#nginx_image=nginx:1.11
